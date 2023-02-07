@@ -14,7 +14,7 @@ on:
       config_url:
         description: '.config_URL'
         required: true
-				default: 'https://raw.githubusercontent.com/Jas0n0ss/cstmzWrt/main/config/cr660x/.config'
+	default: 'https://raw.githubusercontent.com/Jas0n0ss/cstmzWrt/main/config/cr660x/.config'
       cpu_overclock:
         description: '超频至1100Mhz (默认880Mhz)'
         required: true
