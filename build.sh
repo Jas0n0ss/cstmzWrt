@@ -23,10 +23,10 @@ sleep 3
 echo '--import settings--'
 sleep 3
 rm .config
-wget https://github.com/runoo6/Xiaomi-CR660x-Actions/raw/main/.config
-wget https://github.com/runoo6/Xiaomi-CR660x-Actions/raw/main/overclock.patch
-bash -c "$(https://github.com/runoo6/Xiaomi-CR660x-Actions/blob/main/diy-part2.sh)"
-mv overclock.patch target/linux/ramips/patches-5.4/102-mt7621-fix-cpu-clk-add-clkdev.patch
+wget -o .config https://raw.githubusercontent.com/Jas0n0ss/cstmzWrt/main/config/cr660x
+wget -o target/linux/ramips/patches-5.4/102-mt7621-fix-cpu-clk-add-clkdev.patch https://raw.githubusercontent.com/Jas0n0ss/cstmzWrt/main/config/overclock.patch
+bash -c "$(https://raw.githubusercontent.com/Jas0n0ss/cstmzWrt/main/script/network-plugin.sh)"
+# mv overclock.patch target/linux/ramips/patches-5.4/102-mt7621-fix-cpu-clk-add-clkdev.patch
 make defconfig
 make download -j8
 find dl -size -1024c -exec ls -l {} \;
