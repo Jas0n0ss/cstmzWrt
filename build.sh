@@ -13,7 +13,7 @@ echo '--clone source code--'
 sleep 3
 git clone --depth 1 https://github.com/coolsnowwolf/lede -b master
 cd lede
-bash -c "$(https://github.com/runoo6/Xiaomi-CR660x-Actions/raw/main/diy-part1.sh)"
+bash -c "$(https://raw.githubusercontent.com/Jas0n0ss/cstmzWrt/main/script/default-ip.sh)"
 
 echo '--update repository--'
 sleep 3
@@ -23,7 +23,7 @@ sleep 3
 echo '--import settings--'
 sleep 3
 rm .config
-wget -o .config https://raw.githubusercontent.com/Jas0n0ss/cstmzWrt/main/config/cr660x
+wget https://github.com/Jas0n0ss/cstmzWrt/blob/main/config/cr660x/.config
 wget -o target/linux/ramips/patches-5.4/102-mt7621-fix-cpu-clk-add-clkdev.patch https://raw.githubusercontent.com/Jas0n0ss/cstmzWrt/main/config/overclock.patch
 bash -c "$(https://raw.githubusercontent.com/Jas0n0ss/cstmzWrt/main/script/network-plugin.sh)"
 # mv overclock.patch target/linux/ramips/patches-5.4/102-mt7621-fix-cpu-clk-add-clkdev.patch
