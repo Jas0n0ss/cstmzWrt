@@ -54,7 +54,7 @@ jobs:
 
     - name: Load custom feeds
       run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF /workdir/openwrt/feeds.conf.default
         chmod +x /workdir/openwrt/cstmzWrt/$DIY_P1_SH
         /workdir/openwrt/cstmzWrt/$DIY_P1_SH
 
