@@ -8,9 +8,9 @@ echo 'src-git helloworld https://github.com/fw876/helloworld' >> /workdir/openwr
 echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >> /workdir/openwrt/feeds.conf.default
 # echo 'src-git vssr https://github.com/jerrykuku/luci-app-vssr' >>feeds.conf.default
 # download theme
-rm -rf package/lean/luci-theme-argon
+# rm -rf package/lean/luci-theme-argon
 # for openwrt offical
-git clone -b master https://github.com/jerrykuku/luci-theme-argon.git /workdir/openwrt/package/luci-theme-argon
+# git clone -b master https://github.com/jerrykuku/luci-theme-argon.git /workdir/openwrt/package/luci-theme-argon
 # for lede 
 # git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git /workdir/openwrt/package/luci-theme-argon
 ####
