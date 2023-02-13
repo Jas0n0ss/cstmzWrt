@@ -1,4 +1,4 @@
-### cr660x customize OpenWrt
+### customize OpenWrt
 
 Based on lede with full plugins:
 
