@@ -67,7 +67,7 @@ jobs:
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e /workdir/openwrt/cstmzWrt/$CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        [ -e /workdir/openwrt/cstmzWrt/$CONFIG_FILE ] && mv $CONFIG_FILE /workdir/openwrt/.config
         chmod +x /workdir/openwrt/cstmzWrt/$DIY_P2_SH
         /workdir/openwrt/cstmzWrt/$DIY_P2_SH
 
