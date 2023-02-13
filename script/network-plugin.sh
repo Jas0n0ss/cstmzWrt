@@ -10,7 +10,7 @@ echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >> /workdi
 # download theme
 # rm -rf package/lean/luci-theme-argon
 # for openwrt offical
-# git clone -b master https://github.com/jerrykuku/luci-theme-argon.git /workdir/openwrt/package/luci-theme-argon
+# git clone https://github.com/jerrykuku/luci-theme-argon.git /workdir/openwrt/package/luci-theme-argon
 # for lede 
 # git clone -b 18.06 https://github.com/jerrykuku/luci-theme-argon.git /workdir/openwrt/package/luci-theme-argon
 ####
