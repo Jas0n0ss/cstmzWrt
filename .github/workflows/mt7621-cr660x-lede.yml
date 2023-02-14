@@ -56,9 +56,9 @@ jobs:
         run: |
           df -hT $PWD
           git clone $SOURCE_URL -b $SOURCE_BRANCH workspace/openwrt
-          cp $NET_PLUGIN_SH workspace/openwrt/
+          cp scripts/add-network-plugin.sh workspace/openwrt/
           cd workspace/openwrt
-          chmod +x $NET_PLUGIN_SH && $NET_PLUGIN_SH
+          chmod +x add-network-plugin.sh && ./add-network-plugin.sh
           cat feeds.conf.default | grep -v "^#"
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_ENV
           echo "::set-output name=OPENWRT_ROOT_PATH::$(echo $PWD)"
