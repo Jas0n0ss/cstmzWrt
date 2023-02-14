@@ -13,7 +13,7 @@ env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/cr660x/.config
+  CONFIG_FILE: config/cr660x/cr660x_normal
   DIY_P1_SH: script/network-plugin.sh
   DIY_P2_SH: script/default-ip.sh
   UPLOAD_BIN_DIR: false
