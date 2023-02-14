@@ -20,8 +20,7 @@
 
 
 ## 文档
-- [OpenWrt-Rpi](https://github.com/SuLingGG/OpenWrt-Rpi) 固件,下载安装,初始设置,软件包安装说明,等信息请看文档: [https://doc.openwrt.cc/2-OpenWrt-Rpi](https://doc.openwrt.cc/2-OpenWrt-Rpi)
-- 
+- [OpenWrt-Rpi](https://github.com/SuLingGG/OpenWrt-Rpi) 相关文档介绍：[https://doc.openwrt.cc/2-OpenWrt-Rpi](https://doc.openwrt.cc/2-OpenWrt-Rpi)
 
 ## 固件预览
 
