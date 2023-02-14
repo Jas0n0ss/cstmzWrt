@@ -50,7 +50,7 @@ jobs:
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         git clone https://github.com/Jas0n0ss/cstmzWrt.git openwrt/cstmzWrt
-      #  ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        #  ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
     - name: Load custom feeds
       run: |
