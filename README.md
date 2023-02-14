@@ -1,4 +1,9 @@
-# [OpenWrt-Rpi](https://github.com/SuLingGG/OpenWrt-Rpi)
+# cstmzWrt
+
+基于 [OpenWrt-Rpi](https://github.com/SuLingGG/OpenWrt-Rpi)，做了少许改动：
+- 更改了默认后台为 `http://192.168.3.1`, 用户名 `root`密码 `password`
+- 添加 `passwall` `hello-world` `vssr`
+- 添加主题 `ifit` `netgear` `opentopd` `tomato` `bootstrap`
 
 ## 项目介绍
 
@@ -10,11 +15,13 @@
 6. 预置最新版 Clash 核心、预置 oh-my-zsh，最大程度减少配置成本
 7. 提供全格式固件 / 文件 (ext4/squashfs/ubi/initramfs/rootfs)
 8. 对于高级用户，提供完整的固件/软件包构建工具 (imagebuilder / sdk / toolchain)
+9. 在 [OpenWrt-Rpi](https://github.com/SuLingGG/OpenWrt-Rpi) 的基础上添加了第三方网络插件`passwall`，`hello-world`
+10. 修改默认的管理后台地址为 `http://192.168.3.1`, 用户名 `root`密码 `password`
+
+
 ## 文档
-
-固件 下载安装 / 初始设置 / 软件包安装说明 等信息请看文档:
-
-<https://doc.openwrt.cc/2-OpenWrt-Rpi>
+- [OpenWrt-Rpi](https://github.com/SuLingGG/OpenWrt-Rpi) 固件,下载安装,初始设置,软件包安装说明,等信息请看文档: [https://doc.openwrt.cc/2-OpenWrt-Rpi](https://doc.openwrt.cc/2-OpenWrt-Rpi)
+- 
 
 ## 固件预览
 
