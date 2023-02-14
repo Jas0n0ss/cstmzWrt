@@ -469,6 +469,3 @@ jobs:
           commit: ${{ env.CURRENT_BRANCH }}
           token: ${{ secrets.ACTION_TOKEN }}
           artifacts: ${{ env.OPENWRT_ROOT_PATH }}/bin/targets/${{ env.DEVICE_TARGET }}/${{ env.DEVICE_SUBTARGET }}/*
-
-
-ACTION_TOKEN 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
