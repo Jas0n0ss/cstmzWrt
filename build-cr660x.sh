@@ -23,8 +23,8 @@ sleep 3
 echo '--import settings--'
 sleep 3
 rm .config
-wget https://github.com/Jas0n0ss/cstmzWrt/blob/main/config/cr660x/.config
-wget -o target/linux/ramips/patches-5.4/102-mt7621-fix-cpu-clk-add-clkdev.patch https://raw.githubusercontent.com/Jas0n0ss/cstmzWrt/main/config/overclock.patch
+wget -O .config https://github.com/Jas0n0ss/cstmzWrt/blob/main/config/cr660x/cr660x_normal
+wget -O target/linux/ramips/patches-5.4/102-mt7621-fix-cpu-clk-add-clkdev.patch https://raw.githubusercontent.com/Jas0n0ss/cstmzWrt/main/config/overclock.patch
 bash -c "$(https://raw.githubusercontent.com/Jas0n0ss/cstmzWrt/main/script/network-plugin.sh)"
 # mv overclock.patch target/linux/ramips/patches-5.4/102-mt7621-fix-cpu-clk-add-clkdev.patch
 make defconfig
