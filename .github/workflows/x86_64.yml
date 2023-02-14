@@ -1,11 +1,3 @@
-#=================================================
-# https://github.com/P3TERX/Actions-OpenWrt
-# Description: Build OpenWrt using GitHub Actions
-# Lisence: MIT
-# Author: P3TERX
-# Blog: https://p3terx.com
-#=================================================
-
 name: Build x86/64 openwrt
 
 on:
@@ -17,8 +9,8 @@ on:
 
 env:
   CONFIG_FILE: config/x86/64.config
-  SOURCE_URL: https://github.com/immortalwrt/immortalwrt
-  SOURCE_BRANCH: openwrt-18.06-k5.4
+  SOURCE_URL: https://github.com/coolsnowwolf/lede.git
+  SOURCE_BRANCH: master
   DIY_SH: scripts/custom.sh
   TOOLCHAIN_TAG: toolchain
   CLASH_BINARY_PLATFORM: amd64

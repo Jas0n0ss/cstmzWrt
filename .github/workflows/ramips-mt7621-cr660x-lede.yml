@@ -1,4 +1,4 @@
-name: Build Lede
+name: ramips-mt7621-cr660x-lede
 
 on:
   repository_dispatch:
