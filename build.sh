@@ -34,4 +34,4 @@ find dl -size -1024c -exec rm -f {} \;
 
 echo '--starting compiling--'
 sleep 3
-make -j$(nproc)
+make -j$(nproc) V=s
