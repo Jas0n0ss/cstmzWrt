@@ -54,7 +54,7 @@ jobs:
       - name: Clone Source Code
         id: clone
         run: |
-          df -hT $PWD
+          pwd && ls -l && df -hT $PWD
           git clone $SOURCE_URL -b $SOURCE_BRANCH workspace/openwrt
           cd workspace/openwrt
           chmod +x $NET_PLUGIN_SH && $NET_PLUGIN_SH
