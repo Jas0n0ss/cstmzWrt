@@ -15,7 +15,7 @@ env:
   NET_PLUGIN_SH: scripts/add-network-plugin.sh
   TOOLCHAIN_TAG: toolchain
   CLASH_BINARY_PLATFORM: mt7621
-  TOOLCHAIN_RELEASE_UPLOAD: false
+  TOOLCHAIN_RELEASE_UPLOAD: true
   FIRMWARE_RELEASE_UPLOAD: true
   WEB_ROOT_PATH: /data/www/lede
   TZ: Asia/Shanghai
