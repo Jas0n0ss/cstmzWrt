@@ -54,11 +54,12 @@ jobs:
       - name: Clone Source Code
         id: clone
         run: |
-          pwd && ls -l && df -hT $PWD
+          df -hT $PWD
           git clone $SOURCE_URL -b $SOURCE_BRANCH workspace/openwrt
+          cp $NET_PLUGIN_SH workspace/openwrt/
           cd workspace/openwrt
           chmod +x $NET_PLUGIN_SH && $NET_PLUGIN_SH
-          tail -n3 feeds.conf.default
+          cat feeds.conf.default | grep -v "^#"
           echo "OPENWRT_ROOT_PATH=$PWD" >> $GITHUB_ENV
           echo "::set-output name=OPENWRT_ROOT_PATH::$(echo $PWD)"
 
