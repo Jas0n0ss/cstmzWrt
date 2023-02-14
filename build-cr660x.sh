@@ -13,7 +13,7 @@ echo '--clone source code--'
 sleep 3
 git clone --depth 1 https://github.com/coolsnowwolf/lede -b master
 cd lede
-bash -c "$(https://raw.githubusercontent.com/Jas0n0ss/cstmzWrt/main/script/default-ip.sh)"
+bash -c "$(sed -i 's/192.168.1.1/192.168.10.1/g' package/base-files/files/bin/config_generate)"
 
 echo '--update repository--'
 sleep 3
@@ -25,10 +25,11 @@ sleep 3
 rm .config
 wget -O .config https://github.com/Jas0n0ss/cstmzWrt/blob/main/config/cr660x/cr660x_normal
 wget -O target/linux/ramips/patches-5.4/102-mt7621-fix-cpu-clk-add-clkdev.patch https://raw.githubusercontent.com/Jas0n0ss/cstmzWrt/main/config/overclock.patch
-bash -c "$(https://raw.githubusercontent.com/Jas0n0ss/cstmzWrt/main/script/network-plugin.sh)"
+bash -c "$(echo 'src-git helloworld https://github.com/fw876/helloworld' >> feeds.conf.default)"
+bash -c "$(echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >> feeds.conf.default)"
 # mv overclock.patch target/linux/ramips/patches-5.4/102-mt7621-fix-cpu-clk-add-clkdev.patch
 make defconfig
-make download -j8
+make download -j$(nproc)
 find dl -size -1024c -exec ls -l {} \;
 find dl -size -1024c -exec rm -f {} \;
 
