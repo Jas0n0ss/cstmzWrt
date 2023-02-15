@@ -1,4 +1,4 @@
-name: Build bcm27xx/bcm2711 openwrt
+name: Build-bcm2711-rsp4b-lede-master
 
 on:
   workflow_dispatch:
