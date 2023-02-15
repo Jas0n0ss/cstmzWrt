@@ -51,8 +51,6 @@ jobs:
       run: |
         [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
         cd openwrt
-        echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
-        echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
         cat feeds.conf.default | grep -v "^#"
 
     - name: Update feeds
