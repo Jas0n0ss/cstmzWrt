@@ -1,4 +1,4 @@
-name: Build mt7621/xr660x lede
+name: mt7621-cr660x-lede-master
 
 on:
   workflow_dispatch:
