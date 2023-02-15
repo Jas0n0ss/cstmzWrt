@@ -1,26 +1,22 @@
-name: mt7621-cr660x-openwrt-22.03
+# https://github.com/P3TERX/Actions-OpenWrt
+# Description: Build OpenWrt using GitHub Actions
+
+name: Build OpenWrt For cr660x with Passwall
 
 on:
   repository_dispatch:
   workflow_dispatch:
-    inputs:
-      ssh:
-        description: 'SSH connection to Actions'
-        required: false
-        default: 'false'
-
+  schedule:
+    - cron: '0 18 * * 5'
+  
 env:
   REPO_URL: https://github.com/openwrt/openwrt
   REPO_BRANCH: openwrt-22.03
   FEEDS_CONF: feeds.conf.default
-  CONFIG_FILE: config/cr660x/cr660x_normal
-  DIY_P1_SH: script/network-plugin.sh
-  DIY_P2_SH: script/default-ip.sh
+  CONFIG_FILE: config/mt7621/cr660x.config
   UPLOAD_BIN_DIR: false
   UPLOAD_FIRMWARE: true
-  UPLOAD_COWTRANSFER: false
-  UPLOAD_WETRANSFER: false
-  UPLOAD_RELEASE: true
+  UPLOAD_RELEASE: false
   TZ: Asia/Shanghai
 
 jobs:
@@ -49,55 +45,47 @@ jobs:
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
-        git clone https://github.com/Jas0n0ss/cstmzWrt.git openwrt/cstmzWrt
-        #  ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
 
     - name: Load custom feeds
       run: |
-        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF /workdir/openwrt/feeds.conf.default
-        chmod +x /workdir/openwrt/cstmzWrt/$DIY_P1_SH
-        /workdir/openwrt/cstmzWrt/$DIY_P1_SH
+        [ -e $FEEDS_CONF ] && mv $FEEDS_CONF openwrt/feeds.conf.default
+        cd openwrt
+        echo 'src-git helloworld https://github.com/fw876/helloworld' >>feeds.conf.default
+        echo 'src-git passwall https://github.com/xiaorouji/openwrt-passwall' >>feeds.conf.default
+        cat feeds.conf.default | grep -v "^#"
 
     - name: Update feeds
-      run: cd /workdir/openwrt && ./scripts/feeds update -a
+      run: cd openwrt && ./scripts/feeds update -a
 
     - name: Install feeds
-      run: cd /workdir/openwrt && ./scripts/feeds install -a
+      run: cd openwrt && ./scripts/feeds install -a
 
     - name: Load custom configuration
       run: |
         [ -e files ] && mv files openwrt/files
-        [ -e /workdir/openwrt/cstmzWrt/$CONFIG_FILE ] && mv $CONFIG_FILE /workdir/openwrt/.config
-        chmod +x /workdir/openwrt/cstmzWrt/$DIY_P2_SH
-        /workdir/openwrt/cstmzWrt/$DIY_P2_SH
-
-   # - name: SSH connection to Actions
-   #   uses: P3TERX/ssh2actions@v1.0.0
-   #   if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
-   #   env:
-   #     TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-   #     TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        [ -e $CONFIG_FILE ] && mv $CONFIG_FILE openwrt/.config
+        cd openwrt
+        sed -i 's/192.168.1.1/192.168.3.1/g' package/base-files/files/bin/config_generate
 
     - name: Download package
       id: package
       run: |
-        cd /workdir/openwrt/
+        cd openwrt
         make defconfig
-        make download -j$(nproc)
-        find dl -size -1024c -exec ls -l {} \;
-        find dl -size -1024c -exec rm -f {} \;
+        make download -j8
+        rm -fr dl
 
     - name: Compile the firmware
       id: compile
       run: |
-        cd /workdir/openwrt/
+        cd openwrt
         echo -e "$(nproc) thread compile"
-        make -j$(nproc) V=s
+        make -j$(nproc) || make -j1 V=s
         echo "::set-output name=status::success"
         grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
         [ -s DEVICE_NAME ] && echo "DEVICE_NAME=_$(cat DEVICE_NAME)" >> $GITHUB_ENV
         echo "FILE_DATE=_$(date +"%F")" >> $GITHUB_ENV
-        ls -l /workdir/openwrt/bin/targets/*/*/
 
     - name: Check space usage
       if: (!cancelled())
@@ -105,16 +93,16 @@ jobs:
 
     - name: Upload bin directory
       uses: actions/upload-artifact@main
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'false'
+      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'
       with:
         name: OpenWrt_bin${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
-        path: /workdir/openwrt/bin
+        path: openwrt/bin
 
     - name: Organize files
       id: organize
       if: env.UPLOAD_FIRMWARE == 'true' && !cancelled()
       run: |
-        cd /workdir/openwrt/bin
+        cd openwrt/bin/targets/*/*
         rm -rf packages
         echo "FIRMWARE=$PWD" >> $GITHUB_ENV
         echo "::set-output name=status::success"
@@ -126,56 +114,35 @@ jobs:
         name: OpenWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.FIRMWARE }}
 
-   # - name: Upload firmware to cowtransfer
-   #   id: cowtransfer
-   #   if: steps.organize.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
-   #   run: |
-   #     curl -fsSL git.io/file-transfer | sh
-   #     ./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
-   #     echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
-   #     echo "::set-output name=url::$(cat cowtransfer.log | grep https | cut -f3 -d" ")"
-
-   # - name: Upload firmware to WeTransfer
-   #   id: wetransfer
-   #   if: steps.organize.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
-   #   run: |
-   #     curl -fsSL git.io/file-transfer | sh
-   #     ./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
-   #     echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
-   #     echo "::set-output name=url::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
-
     - name: Generate release tag
       id: tag
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
         echo "::set-output name=release_tag::$(date +"%F")"
-        touch release.txt
-        echo "${{ env.DEVICE_NAME }}_${{ env.FILE_DATE }}" >> release.txt
+        echo $(date +"%F") > release.txt
         echo "::set-output name=status::success"
 
     - name: Upload firmware to release
       uses: softprops/action-gh-release@v1
       if: steps.tag.outputs.status == 'success' && !cancelled()
       env:
-        GITHUB_TOKEN: ${{ secrets.ACTION_TOKEN }}
+        ACTION_TOKEN: ${{ secrets.ACTION_TOKEN }}
       with:
         tag_name: ${{ steps.tag.outputs.release_tag }}
-        body_path: release.txt
+        #body_path: release.txt
         files: ${{ env.FIRMWARE }}/*
 
     - name: Delete workflow runs
-      uses: Mattraks/delete-workflow-runs@v2
+      uses: GitRML/delete-workflow-runs@main
       with:
-        token: ${{ secrets.ACTION_TOKEN }}
-        repository: ${{ github.repository }}
         retain_days: 1
-        keep_minimum_runs: 1
+        keep_minimum_runs: 3
 
     - name: Remove old Releases
       uses: dev-drprasad/delete-older-releases@v0.1.0
       if: env.UPLOAD_RELEASE == 'true' && !cancelled()
       with:
-        keep_latest: 1
+        keep_latest: 3
         delete_tags: true
       env:
-        GITHUB_TOKEN: ${{ secrets.ACTION_TOKEN}}
+        ACTION_TOKEN: ${{ secrets.ACTION_TOKEN }}
