@@ -6,7 +6,7 @@ on:
 # Runs at 18:00, only on Sunday.
 
 jobs:
-  del_runs:
+  Delete-old-workflow-runs:
     runs-on: ubuntu-latest
     steps:
       - name: Delete workflow runs
