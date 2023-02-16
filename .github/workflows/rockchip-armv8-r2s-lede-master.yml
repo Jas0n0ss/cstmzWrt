@@ -2,8 +2,8 @@ name: rockchip-armv8-r2s-lede-master
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: 0 18 * * *
+  #schedule:
+  #  - cron: 0 18 * * *
   # watch:
   #   types: started
 
