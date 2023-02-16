@@ -2,8 +2,8 @@ name: mt7621-cr660x-lede-master
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: 0 18 * * 5
+  #schedule:
+  #  - cron: 0 18 * * 5
   # watch:
   #   types: started
 
