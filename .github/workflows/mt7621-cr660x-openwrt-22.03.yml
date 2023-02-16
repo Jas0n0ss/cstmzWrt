@@ -6,8 +6,8 @@ name: Build OpenWrt For cr660x with Passwall
 on:
   repository_dispatch:
   workflow_dispatch:
-  schedule:
-    - cron: '0 18 * * 5'
+  #schedule:
+  #  - cron: '0 18 * * 5'
   
 env:
   REPO_URL: https://github.com/openwrt/openwrt
