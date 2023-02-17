@@ -1,10 +1,10 @@
 # cstmzWrt
 
-基于 [OpenWrt-Rpi](https://github.com/SuLingGG/OpenWrt-Rpi)，做了少许改动：
+基于 [OpenWrt-Rpi](https://github.com/SuLingGG/OpenWrt-Rpi)
 
-- 更改了默认后台为 `http://192.168.3.1`, 用户名 `root`密码 `password`
+- 更改了默认后台`10.0.0.1`为 `http://192.168.3.1`, 用户名 `root`密码 `Huawei2#$`
 - 添加 `passwall` `hello-world` `vssr`
-- 添加主题 `ifit` `netgear` `opentopd` `tomato` `bootstrap`
+- 默认主题 `bootstrap` 主题
 
 ## 项目介绍
 
@@ -15,10 +15,10 @@
 5. 集成绝大多数有线、无线、3G / 4G 网卡驱动，无需额外安装
 6. 预置最新版 Clash 核心、预置 oh-my-zsh，最大程度减少配置成本
 7. 提供全格式固件 / 文件 (ext4/squashfs/ubi/initramfs/rootfs)
-8. 对于高级用户，提供完整的固件/软件包构建工具 (imagebuilder / sdk / toolchain)
-9. 在 [OpenWrt-Rpi](https://github.com/SuLingGG/OpenWrt-Rpi) 的基础上添加了第三方网络插件`passwall`，`hello-world`
-10. 修改默认的管理后台地址为 `http://192.168.3.1`, 用户名 `root`密码 `password`
+8. 在 [OpenWrt-Rpi](https://github.com/SuLingGG/OpenWrt-Rpi) 的基础上添加了第三方网络插件`passwall`，`hello-world`
+9. 修改默认的管理后台地址为 `http://192.168.3.1`, 用户名 `root`密码 `Huawei12#$`
 
+在线自定义编译固件： https://supes.top/ 
 
 ## 文档
 
@@ -45,5 +45,4 @@
   - [easimon/maximize-build-space](https://github.com/easimon/maximize-build-space)
 
 ## 固件预览
-
-![内置功能](https://ae02.alicdn.com/kf/Hf29f2d94339d4188bbdde7f3131b500af.png)
+![image](https://user-images.githubusercontent.com/88020021/219606078-203fefc6-a645-410c-ab69-b2b1a4bdb038.png)
